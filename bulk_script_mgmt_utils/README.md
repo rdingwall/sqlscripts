@@ -1,7 +1,7 @@
 Bulk SQL Script Management Tools
 ================================
 
-This is a collection of PowerShell scripts for maintaining numbered SQL script files to support the following practices. Most are RDBMS agnostic.
+This is a collection of PowerShell scripts for maintaining numbered SQL script files to support the following practices. Most are RDBMS agnostic (or can be easily adapted).
 
 #### Numbered Scripts / Schema Versioning
 
@@ -74,13 +74,20 @@ To ensure every database environment is identical, the same set of scripts is ap
 
 #### Concatenating SQL Scripts
 
-Although we are using separate numbered scripts, some DBAs may prefer to only receive a single SQL script for each release. A PowerShell script is included here to concatenate multiple scripts, in order, and wrapped with error handling.
+Although we are using separate numbered scripts, some DBAs may prefer to only receive a single SQL script for each release. A PowerShell script is included here to concatenate multiple scripts in the order.
 
 #### Invoking Oracle scripts in SQL*Plus
 
 If your DBAs only use SQL*Plus to run scripts,a PowerShell script is provided for developers to simply call sqlplus.exe in a loop over a directory of scripts (including error handling etc).
 
 #### Testing your upgrade/downgrade scripts in TeamCity
+
+A PowerShell script is included for continuous integration/test driven environments to be used in a TeamCity build to verify all your Oracle upgrade scripts play through successfully in SQL*Plus, from 0001 to n (and ptionally back to 0001 again if you have downgrade scripts). The PowerShell script will:
+
+* Drop and recreate the user (via a separate script, you need to write this), runs all the upgrade scripts, and recompiles all the packages etc.
+* Emit specially-formatted messages to the console that can be read by TeamCity build server and provide live progress updates (e.g. the name of the script that is currently executing, and the total number of scripts that were run).
+* Run all *.sql scripts in a directory in Oracle SQL*Plus.
+* Wrap scripts in PLSQL error handling, and stop on any error.
 
 ## Links
 
