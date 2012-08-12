@@ -92,6 +92,8 @@ A PowerShell script is included for continuous integration/test driven environme
 ## Links
 
 You can read more about this style of deployment and its benefits here:
+
+* [Deployment and source-control-friendly database versioning scripts (my blog)](http://richarddingwall.name/2009/02/06/deployment-and-source-control-friendly-database-versioning-scripts/)
 * [Database Version Control](http://techportal.ibuildings.com/2011/01/11/database-version-control)
 * [Database Continuous Integration Part 1](http://www.pebblesteps.com/post/Database-Continuous-Integration-Part-1.aspx)
 * [The road to automated database deployment](http://richarddingwall.name/2011/02/09/the-road-to-automated-database-deployment)
