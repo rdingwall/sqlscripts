@@ -1,6 +1,13 @@
 # Powershell script to add an extra command to the bottom of a series of *.sql
 # scripts, so that after running, each script records itself with an entry in a
 # changelog/schemaversion/dbscripts/scriptslog table.
+#
+# This assumes each script has a number prefix and uses that to populate one of
+# the columns, for example:
+#
+# 00001_a.sql --> INSERT INTO CHANGELOG (VERSION_NUMBER, FILE_NAME) VALUES (1, '00001_a.sql');
+
+$padding = 5;
 
 $files = Get-ChildItem C:\yourapp\sql\up | Sort-Object
 
@@ -19,7 +26,7 @@ foreach ($file in $files) {
 # Add them back
 foreach ($file in $files) {
 
-	$versionNumber = [Int32]::Parse($file.Name.Substring(0, 5));
+	$versionNumber = [Int32]::Parse($file.Name.Substring(0, $padding));
 
 	[string] $str = [System.IO.File]::ReadAllText($file.FullName).Trim();
 
